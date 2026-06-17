@@ -12,6 +12,8 @@ import {
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/d13e5853-db14-4e7f-b910-3b964529a9ed/files/e55d948d-2f50-4f09-8e39-fb436263cd0c.jpg';
 
+const PAYMENT_URL = 'https://functions.poehali.dev/a2a0b87c-c1bc-4fd8-a3a3-03cc73e5edf1';
+
 const NAV = [
   { id: 'home', label: 'Главная' },
   { id: 'server', label: 'Сервер' },
@@ -106,10 +108,13 @@ const FEATURES = [
   { icon: 'Headset', title: 'Активная админка', desc: 'Поддержка ответит за пару минут' },
 ];
 
+type Tariff = { name: string; price: string };
+
 export default function Index() {
   const [active, setActive] = useState('home');
   const [loggedIn, setLoggedIn] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [buyTariff, setBuyTariff] = useState<Tariff | null>(null);
 
   const scrollTo = (id: string) => {
     setActive(id);
@@ -280,7 +285,10 @@ export default function Index() {
                     </li>
                   ))}
                 </ul>
-                <Button className={`mt-6 h-11 w-full rounded-xl text-base font-bold ${d.btn}`}>
+                <Button
+                  onClick={() => setBuyTariff({ name: d.name, price: d.price })}
+                  className={`mt-6 h-11 w-full rounded-xl text-base font-bold ${d.btn}`}
+                >
                   Выбрать
                 </Button>
               </div>
@@ -313,7 +321,91 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      <BuyDialog tariff={buyTariff} onClose={() => setBuyTariff(null)} />
     </div>
+  );
+}
+
+function BuyDialog({ tariff, onClose }: { tariff: Tariff | null; onClose: () => void }) {
+  const [nickname, setNickname] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const pay = async () => {
+    if (nickname.trim().length < 3) {
+      setError('Введите игровой ник (минимум 3 символа)');
+      return;
+    }
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch(PAYMENT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tariff: tariff?.name,
+          nickname: nickname.trim(),
+          returnUrl: window.location.origin,
+        }),
+      });
+      const data = await res.json();
+      if (data.confirmationUrl) {
+        window.location.href = data.confirmationUrl;
+      } else {
+        setError(data.error || 'Не удалось создать платёж');
+        setLoading(false);
+      }
+    } catch {
+      setError('Ошибка соединения. Попробуйте позже');
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Dialog open={!!tariff} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="rounded-3xl glass">
+        <DialogHeader>
+          <DialogTitle className="font-display text-2xl font-black text-white">
+            Покупка {tariff?.name}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between rounded-2xl bg-white/5 p-4">
+            <span className="font-semibold text-white">Привилегия {tariff?.name}</span>
+            <span className="font-display text-2xl font-black text-primary">{tariff?.price}</span>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-semibold text-white">Игровой ник</label>
+            <input
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition-all focus:border-primary/50 focus:ring-2 focus:ring-primary/30"
+              placeholder="Ник, на который выдать привилегию"
+            />
+            <p className="mt-1.5 text-xs text-muted-foreground">
+              Убедись, что ник написан правильно — привилегия выдаётся автоматически
+            </p>
+          </div>
+          {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+          <Button
+            onClick={pay}
+            disabled={loading}
+            className="h-12 w-full rounded-xl text-base font-bold"
+          >
+            {loading ? (
+              <Icon name="Loader2" className="mr-2 animate-spin" size={18} />
+            ) : (
+              <Icon name="CreditCard" className="mr-2" size={18} />
+            )}
+            {loading ? 'Создаём платёж...' : 'Перейти к оплате'}
+          </Button>
+          <p className="text-center text-xs text-muted-foreground">
+            Оплата картой, СБП или кошельком через ЮKassa
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Неизвестный тариф",
+      "method": "POST",
+      "path": "/",
+      "body": {"tariff": "UNKNOWN", "nickname": "Steve"},
+      "expectedStatus": 400
+    },
+    {
+      "name": "Некорректный ник",
+      "method": "POST",
+      "path": "/",
+      "body": {"tariff": "HERO", "nickname": "ab"},
+      "expectedStatus": 400
+    }
+  ]
+}
