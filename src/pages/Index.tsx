@@ -26,7 +26,7 @@ const DONATES = [
 
 const SERVER_STATS = [
   { label: 'Онлайн', value: '847', icon: 'Users' },
-  { label: 'Версия', value: '1.20.4', icon: 'Boxes' },
+  { label: 'Версия', value: '1.16.5', icon: 'Boxes' },
   { label: 'Аптайм', value: '99.9%', icon: 'Activity' },
   { label: 'Миры', value: '5', icon: 'Globe' },
 ];
@@ -49,7 +49,7 @@ export default function Index() {
             <div className="flex h-11 w-11 items-center justify-center bg-primary block-border block-shadow">
               <Icon name="Pickaxe" className="text-primary-foreground" size={22} />
             </div>
-            <span className="font-pixel text-sm text-primary">BlockCraft</span>
+            <span className="font-pixel text-sm text-primary">MusoWorld</span>
           </div>
 
           <nav className="hidden gap-1 md:flex">
@@ -180,9 +180,9 @@ export default function Index() {
         <div className="container flex flex-col items-center justify-between gap-4 py-8 md:flex-row">
           <div className="flex items-center gap-2">
             <Icon name="Pickaxe" className="text-primary" size={20} />
-            <span className="font-pixel text-xs text-primary">BlockCraft</span>
+            <span className="font-pixel text-xs text-primary">MusoWorld</span>
           </div>
-          <p className="text-sm text-muted-foreground">© 2026 BlockCraft. Не аффилировано с Mojang.</p>
+          <p className="text-sm text-muted-foreground">© 2026 MusoWorld. Не аффилировано с Mojang.</p>
           <div className="flex gap-3">
             {['MessageCircle', 'Youtube', 'Send'].map((ic) => (
               <button key={ic} className="flex h-10 w-10 items-center justify-center bg-muted block-border hover:bg-primary hover:text-primary-foreground">
