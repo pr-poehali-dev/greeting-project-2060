@@ -14,18 +14,8 @@ const HERO_IMG =
 
 const NAV = [
   { id: 'home', label: 'Главная' },
-  { id: 'products', label: 'Товары' },
   { id: 'server', label: 'Сервер' },
   { id: 'donate', label: 'Донаты' },
-];
-
-const PRODUCTS = [
-  { name: 'Алмазный набор', price: '199 ₽', icon: 'Gem', color: 'text-cyan-400', desc: '64 алмаза + броня' },
-  { name: 'Зачарованный меч', price: '149 ₽', icon: 'Sword', color: 'text-purple-400', desc: 'Острота V + Отдача' },
-  { name: 'Сундук ресурсов', price: '249 ₽', icon: 'Package', color: 'text-amber-400', desc: 'Все базовые блоки' },
-  { name: 'Зелье силы', price: '79 ₽', icon: 'FlaskConical', color: 'text-rose-400', desc: 'Бафф на 30 минут' },
-  { name: 'Элитры', price: '399 ₽', icon: 'Bird', color: 'text-slate-300', desc: 'Полёт по карте' },
-  { name: 'Набор еды', price: '59 ₽', icon: 'Apple', color: 'text-red-400', desc: 'Золотые яблоки x16' },
 ];
 
 const DONATES = [
@@ -101,20 +91,20 @@ export default function Index() {
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button
               size="lg"
-              onClick={() => scrollTo('products')}
-              className="h-14 px-8 font-pixel text-xs block-shadow block-border"
-            >
-              <Icon name="ShoppingCart" className="mr-2" size={18} />
-              В МАГАЗИН
-            </Button>
-            <Button
-              size="lg"
-              variant="secondary"
               onClick={() => scrollTo('donate')}
               className="h-14 px-8 font-pixel text-xs block-shadow block-border"
             >
               <Icon name="Crown" className="mr-2" size={18} />
               ДОНАТ
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => scrollTo('server')}
+              className="h-14 px-8 font-pixel text-xs block-shadow block-border"
+            >
+              <Icon name="Server" className="mr-2" size={18} />
+              О СЕРВЕРЕ
             </Button>
           </div>
 
@@ -124,32 +114,6 @@ export default function Index() {
               <Icon name="Copy" size={16} />
             </Button>
           </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS */}
-      <section id="products" className="container py-20">
-        <SectionTitle icon="Store" title="ТОВАРЫ" sub="Прокачай своего персонажа" />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PRODUCTS.map((p, i) => (
-            <div
-              key={p.name}
-              className="group animate-fade-in bg-card p-6 block-border block-shadow transition-transform hover:-translate-y-1"
-              style={{ animationDelay: `${i * 60}ms`, opacity: 0 }}
-            >
-              <div className="mb-4 flex h-16 w-16 items-center justify-center bg-muted block-border">
-                <Icon name={p.icon} className={p.color} size={32} />
-              </div>
-              <h3 className="text-lg font-bold">{p.name}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{p.desc}</p>
-              <div className="mt-5 flex items-center justify-between">
-                <span className="font-pixel text-sm text-secondary">{p.price}</span>
-                <Button size="sm" className="font-semibold">
-                  <Icon name="Plus" className="mr-1" size={16} /> Купить
-                </Button>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
