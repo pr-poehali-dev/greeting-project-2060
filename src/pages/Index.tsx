@@ -20,32 +20,77 @@ const NAV = [
 
 const DONATES = [
   {
-    name: 'VIP',
-    price: '299 ₽',
-    icon: 'Star',
-    gradient: 'from-emerald-500/20 to-teal-500/5',
-    ring: 'ring-primary/40',
-    btn: 'bg-primary text-primary-foreground hover:bg-primary/90',
-    perks: ['Цветной ник', 'Кит VIP', '2 дома', 'Префикс [VIP]'],
+    name: 'HERO',
+    price: '20 ₽',
+    icon: 'Shield',
+    gradient: 'from-sky-500/20 to-cyan-500/5',
+    ring: 'ring-sky-400/40',
+    btn: 'bg-sky-500 text-white hover:bg-sky-400',
+    perks: ['Цветной ник', 'Кит HERO', '1 дом', 'Префикс [HERO]'],
   },
   {
-    name: 'PREMIUM',
-    price: '599 ₽',
+    name: 'TITAN',
+    price: '30 ₽',
+    icon: 'Swords',
+    gradient: 'from-emerald-500/20 to-teal-500/5',
+    ring: 'ring-emerald-400/40',
+    btn: 'bg-emerald-500 text-white hover:bg-emerald-400',
+    perks: ['Всё из HERO', 'Кит TITAN', '2 дома', 'Доступ к /hat'],
+  },
+  {
+    name: 'AVENGER',
+    price: '70 ₽',
+    icon: 'Star',
+    gradient: 'from-lime-500/20 to-green-500/5',
+    ring: 'ring-lime-400/40',
+    btn: 'bg-lime-500 text-black hover:bg-lime-400',
+    perks: ['Всё из TITAN', 'Кит AVENGER', '3 дома', 'Команда /feed'],
+  },
+  {
+    name: 'OVERLORD',
+    price: '120 ₽',
+    icon: 'Flame',
+    gradient: 'from-amber-500/25 to-yellow-500/5',
+    ring: 'ring-amber-400/50',
+    btn: 'bg-amber-500 text-black hover:bg-amber-400',
+    perks: ['Всё из AVENGER', 'Кит OVERLORD', '5 домов', 'Полёт /fly'],
+  },
+  {
+    name: 'IMPERATOR',
+    price: '220 ₽',
     icon: 'Crown',
-    gradient: 'from-orange-500/25 to-amber-500/5',
-    ring: 'ring-secondary/60',
-    btn: 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
-    perks: ['Всё из VIP', 'Полёт /fly', '5 домов', 'Приватные ивенты'],
+    gradient: 'from-orange-500/25 to-red-500/5',
+    ring: 'ring-orange-400/50',
+    btn: 'bg-orange-500 text-white hover:bg-orange-400',
+    perks: ['Всё из OVERLORD', 'Кит IMPERATOR', '7 домов', 'Приватные ивенты'],
     popular: true,
   },
   {
-    name: 'LEGEND',
-    price: '999 ₽',
+    name: 'DRAGON',
+    price: '330 ₽',
     icon: 'Sparkles',
-    gradient: 'from-violet-500/25 to-fuchsia-500/5',
-    ring: 'ring-accent/50',
-    btn: 'bg-accent text-accent-foreground hover:bg-accent/90',
-    perks: ['Всё из PREMIUM', 'Креатив режим', '10 домов', 'Свой варп'],
+    gradient: 'from-rose-500/25 to-pink-500/5',
+    ring: 'ring-rose-400/50',
+    btn: 'bg-rose-500 text-white hover:bg-rose-400',
+    perks: ['Всё из IMPERATOR', 'Кит DRAGON', '10 домов', 'Свой варп'],
+  },
+  {
+    name: 'D.HELPER',
+    price: '500 ₽',
+    icon: 'ShieldCheck',
+    gradient: 'from-violet-500/25 to-purple-500/5',
+    ring: 'ring-violet-400/50',
+    btn: 'bg-violet-500 text-white hover:bg-violet-400',
+    perks: ['Всё из DRAGON', 'Права хелпера', 'Кик/мут игроков', 'Спец-чат'],
+  },
+  {
+    name: 'GOD',
+    price: '1000 ₽',
+    icon: 'Gem',
+    gradient: 'from-fuchsia-500/30 to-indigo-500/10',
+    ring: 'ring-fuchsia-400/60',
+    btn: 'bg-fuchsia-500 text-white hover:bg-fuchsia-400',
+    perks: ['Всё из D.HELPER', 'Креатив режим', 'Безлимит домов', 'Статус [GOD]'],
   },
 ];
 
@@ -209,38 +254,33 @@ export default function Index() {
         <div className="container relative">
           <SectionTitle eyebrow="Магазин" title="Привилегии" sub="Выбери свой статус на сервере" />
 
-          <div className="grid items-stretch gap-8 lg:grid-cols-3">
+          <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {DONATES.map((d) => (
               <div
                 key={d.name}
-                className={`relative flex flex-col rounded-3xl bg-gradient-to-b ${d.gradient} glass p-8 ring-1 ${d.ring} transition-all hover:-translate-y-2 ${
-                  d.popular ? 'lg:-mt-4 lg:mb-4 lg:scale-105' : ''
-                }`}
+                className={`relative flex flex-col rounded-3xl bg-gradient-to-b ${d.gradient} glass p-6 ring-1 ${d.ring} transition-all hover:-translate-y-2`}
               >
                 {d.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-secondary px-4 py-1 text-xs font-bold uppercase tracking-wider text-secondary-foreground">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-secondary px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-secondary-foreground">
                     Хит продаж
                   </span>
                 )}
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10">
-                  <Icon name={d.icon} className="text-white" size={28} />
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
+                  <Icon name={d.icon} className="text-white" size={24} />
                 </div>
-                <h3 className="font-display text-2xl font-extrabold text-white">{d.name}</h3>
-                <div className="mt-2 font-display text-4xl font-black text-white">
-                  {d.price}
-                  <span className="ml-1 text-base font-medium text-muted-foreground">/ навсегда</span>
-                </div>
-                <ul className="mt-7 flex-1 space-y-3.5">
+                <h3 className="font-display text-xl font-extrabold text-white">{d.name}</h3>
+                <div className="mt-1 font-display text-3xl font-black text-white">{d.price}</div>
+                <ul className="mt-5 flex-1 space-y-2.5">
                   {d.perks.map((perk) => (
-                    <li key={perk} className="flex items-center gap-3 text-sm font-medium text-white/90">
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/20">
+                    <li key={perk} className="flex items-center gap-2.5 text-sm font-medium text-white/90">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20">
                         <Icon name="Check" className="text-primary" size={13} />
                       </span>
                       {perk}
                     </li>
                   ))}
                 </ul>
-                <Button className={`mt-8 h-12 w-full rounded-xl text-base font-bold ${d.btn}`}>
+                <Button className={`mt-6 h-11 w-full rounded-xl text-base font-bold ${d.btn}`}>
                   Выбрать
                 </Button>
               </div>
