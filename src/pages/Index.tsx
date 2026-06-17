@@ -25,7 +25,6 @@ const DONATES = [
 ];
 
 const SERVER_STATS = [
-  { label: 'Онлайн', value: '847', icon: 'Users' },
   { label: 'Версия', value: '1.16.5', icon: 'Boxes' },
   { label: 'Аптайм', value: '99.9%', icon: 'Activity' },
   { label: 'Миры', value: '5', icon: 'Globe' },
@@ -78,9 +77,7 @@ export default function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background" />
         <div className="container relative py-28 text-center md:py-40">
-          <span className="mb-6 inline-block bg-secondary px-4 py-2 font-pixel text-[10px] text-secondary-foreground block-shadow">
-            СЕРВЕР ОНЛАЙН • 847 ИГРОКОВ
-          </span>
+
           <h1 className="mx-auto max-w-3xl font-pixel text-2xl leading-relaxed text-white drop-shadow-[3px_3px_0_rgba(0,0,0,0.6)] md:text-4xl">
             Построй свою
             <span className="text-primary"> легенду</span>
